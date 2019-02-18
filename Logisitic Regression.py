@@ -4,8 +4,8 @@ from spambase.Dataset import norm_data
 import Evalutaion_Prediction as Tools
 
 
-def gradient_decent_logistic_regression(GD_data: pd.DataFrame, iteration: int = 10000, learning_rate: float =
-.00001) -> list:
+def gradient_decent_logistic_regression(GD_data: pd.DataFrame, iteration: int = 10000,
+                                        learning_rate: float = .00001) -> list:
     """
     This function takes in a data frame and returns a model to use to make predictions
     Args:
@@ -46,7 +46,7 @@ def gradient_decent_logistic_regression(GD_data: pd.DataFrame, iteration: int = 
     return thetas.T
 
 
-def logistic_prediction(data: pd.DataFrame, model: pd.DataFrame):
+def logistic_prediction(data: pd.DataFrame, model: list):
     """
     This function is used to predict data
     :param data: is the data matrix that the prediction model is being used on

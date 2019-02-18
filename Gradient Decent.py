@@ -37,10 +37,12 @@ def gradient_decent_linear_regression(feature_matrix: pd.DataFrame, labels: pd.D
 
     for i in range(iterations):
         # (1xn) - ((1xm) * (mxn)) => (1xn) - (1xn) => (1xn)
-        prediction_error = Y - (thetas @ X.T)
 
-        # ((1xn) * (nxm)) *(2/m) => (1xm)
-        gradient = (-prediction_error @ X) * 2 / m
+        # h_w(x) = w*x
+        prediction = thetas @ X.T
+
+        # 2*(h_w(x) - y)(x)/m
+        gradient = 2*((prediction - Y) @ X)/ m
 
         # (1xm) - lambda*(1xm) => (1xm)   : Perfect
         thetas = thetas - learning_rate * gradient

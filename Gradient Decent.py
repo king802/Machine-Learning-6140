@@ -42,7 +42,7 @@ def gradient_decent_linear_regression(feature_matrix: pd.DataFrame, labels: pd.D
         prediction = thetas @ X.T
 
         # 2*(h_w(x) - y)(x)/m
-        gradient = 2*((prediction - Y) @ X)/ m
+        gradient = 2 * ((prediction - Y) @ X) / m
 
         # (1xm) - lambda*(1xm) => (1xm)   : Perfect
         thetas = thetas - learning_rate * gradient
@@ -89,7 +89,7 @@ def k_fold_GD(data: pd.DataFrame, folds: int = 5) -> (float, float):
         test_results = predict(test, model)
         train_results = predict(train, model)
 
-        Confusion_Matrix(test_results, test_labels)
+        # Confusion_Matrix(test_results, test_labels)
 
         acc_test.append(accuracy(test_results, test_labels))
         acc_train.append(accuracy(train_results, train_labels))

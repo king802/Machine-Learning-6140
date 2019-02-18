@@ -4,8 +4,8 @@ from spambase.Dataset import norm_data
 import Evalutaion_Prediction as Tools
 
 
-def gradient_decent_logistic_regression(GD_data: pd.DataFrame, iteration: int = 100000, learning_rate: float =
-.001) -> list:
+def gradient_decent_logistic_regression(GD_data: pd.DataFrame, iteration: int = 10000, learning_rate: float =
+.00001) -> list:
     """
     This function takes in a data frame and returns a model to use to make predictions
     Args:
@@ -18,9 +18,7 @@ def gradient_decent_logistic_regression(GD_data: pd.DataFrame, iteration: int = 
     """
     GD_data = GD_data.copy()
 
-    GD_data['Bias'] = 1
-
-    Y = np.matrix(GD_data.pop('Labels'))
+    Y = np.matrix(GD_data['Labels'])
 
     X = GD_data.values
 
@@ -49,6 +47,12 @@ def gradient_decent_logistic_regression(GD_data: pd.DataFrame, iteration: int = 
 
 
 def logistic_prediction(data: pd.DataFrame, model: pd.DataFrame):
+    """
+    This function is used to predict data
+    :param data: is the data matrix that the prediction model is being used on
+    :param model: this is the list of weights from the prediction algorithm that will be applied to the data.
+    :return:
+    """
     results = data @ model
 
     results = results.values.T.tolist()[0]
@@ -59,10 +63,21 @@ def logistic_prediction(data: pd.DataFrame, model: pd.DataFrame):
 
 
 def sigmoid(score):
+    """
+    This is used to transpose data in the sigmoid function.
+    :param score: the number to be placed on the sigmoid function.
+    :return: the sigmoid version of the
+    """
     return 1 / (1 + np.exp(-score))
 
 
 def k_fold_logistic(data: pd.DataFrame, folds: int = 5) -> (float, float):
+    """
+    This function is used to perform Cross-Validation on a the logistic regression learning algorithm.
+    :param data:
+    :param folds:
+    :return:
+    """
     d = data.sample(frac=1)
     segments = np.array_split(d, folds)
     acc_test = []
@@ -93,9 +108,12 @@ def k_fold_logistic(data: pd.DataFrame, folds: int = 5) -> (float, float):
     return Tools.avg(acc_train), Tools.avg(acc_test)
 
 
+"""
+-----------------------------------------------------------------------------------------------------------------------
+Spam Run:
+-----------------------------------------------------------------------------------------------------------------------
+"""
 GD_log_Spam: pd.DataFrame = norm_data
-
-GD_log_Spam['bias'] = 1
 
 Training_accuracy, Testing_error = k_fold_logistic(GD_log_Spam)
 
